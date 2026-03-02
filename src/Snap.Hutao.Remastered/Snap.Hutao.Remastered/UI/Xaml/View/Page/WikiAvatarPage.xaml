@@ -26,7 +26,7 @@
     d:DataContext="{d:DesignInstance Type=shvw:WikiAvatarViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d"
-    x:Name="RootPage">
+    x:Name="PageRoot">
     <mxi:Interaction.Behaviors>
         <shuxb:InvokeCommandOnLoadedBehavior Command="{Binding LoadCommand}"/>
     </mxi:Interaction.Behaviors>
@@ -38,10 +38,13 @@
 
         <shuxdcs:RangedInt32Converter x:Key="RangedInt32Converter"/>
 
-        <shux:BindingProxy x:Key="BindingProxy" DataContext="{Binding}"/>
+        <shux:BindingProxy x:Key="BindingProxy"
+                           DataContext="{Binding}"/>
 
-        <DataTemplate x:Key="SkillDataTemplate" x:DataType="shmma:ProudSkill">
-            <Grid Margin="0,16,0,0" ColumnSpacing="16">
+        <DataTemplate x:Key="SkillDataTemplate"
+                      x:DataType="shmma:ProudSkill">
+            <Grid Margin="0,16,0,0"
+                  ColumnSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
@@ -62,7 +65,8 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="TalentDataTemplate" x:DataType="shmma:Skill">
+        <DataTemplate x:Key="TalentDataTemplate"
+                      x:DataType="shmma:Skill">
             <shuxct:DescriptionTextBlock
                 Margin="0,12,0,0"
                 Description="{Binding Description}"
@@ -70,8 +74,10 @@
                 TextStyle="{StaticResource BodyTextBlockStyle}"/>
         </DataTemplate>
 
-        <DataTemplate x:Key="TokenTemplate" x:DataType="shuxca:SearchToken">
-            <Grid Height="22" VerticalAlignment="Center">
+        <DataTemplate x:Key="TokenTemplate"
+                      x:DataType="shuxca:SearchToken">
+            <Grid Height="22"
+                  VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="24"/>
                     <ColumnDefinition/>
@@ -110,18 +116,22 @@
                     Text="{Binding Value}"/>
             </Grid>
         </DataTemplate>
-
-        <DataTemplate x:Key="AvatarListTemplate" x:DataType="shmma:Avatar">
-            <Grid>
+        <!--         列表模式的头像项模板，包含头像图标、名称以及右键菜单。 -->
+        <DataTemplate x:Key="AvatarListTemplate"
+                      x:DataType="shmma:Avatar">
+            <Grid Background="Transparent">
                 <Grid.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem
-                            Command="{Binding Path=DataContext.CultivateCommand, ElementName=RootPage}"
+                            Command="{Binding ElementName=PageRoot, Path=DataContext.CultivateCommand}"
                             CommandParameter="{Binding}"
-                            Icon="{shuxm:FontIcon Glyph=&#xE8EF;}"
-                            Text="{shuxm:ResourceString Name=ViewPageCultivateCalculate}"/>
+                            Text="{shuxm:ResourceString Name=ViewPageWiKiGeneralAddToDevPlanButtonLabel}"/>
                     </MenuFlyout>
                 </Grid.ContextFlyout>
+
+
+
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
@@ -140,7 +150,8 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="CultivationItemTemplate" x:DataType="shmmi:Material">
+        <DataTemplate x:Key="CultivationItemTemplate"
+                      x:DataType="shmmi:Material">
             <shuxcc:HorizontalCard>
                 <shuxcc:HorizontalCard.Left>
                     <shuxc:ItemIcon
@@ -158,7 +169,8 @@
             </shuxcc:HorizontalCard>
         </DataTemplate>
 
-        <DataTemplate x:Key="CollocationTemplate" x:DataType="shvc:CollocationView">
+        <DataTemplate x:Key="CollocationTemplate"
+                      x:DataType="shvc:CollocationView">
             <shuxcc:HorizontalCard>
                 <shuxcc:HorizontalCard.Left>
                     <shuxc:ItemIcon
@@ -168,9 +180,11 @@
                         Quality="{Binding Quality}"/>
                 </shuxcc:HorizontalCard.Left>
                 <shuxcc:HorizontalCard.Right>
-                    <StackPanel Margin="8,0,0,0" HorizontalAlignment="Left">
+                    <StackPanel Margin="8,0,0,0"
+                                HorizontalAlignment="Left">
                         <TextBlock Text="{Binding Name}"/>
-                        <StackPanel Orientation="Horizontal" Spacing="4">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="4">
                             <TextBlock
                                 Opacity="0.7"
                                 Style="{StaticResource CaptionTextBlockStyle}"
@@ -185,7 +199,8 @@
             </shuxcc:HorizontalCard>
         </DataTemplate>
 
-        <DataTemplate x:Key="CollocationReliquaryTemplate" x:DataType="shvc:ReliquarySetView">
+        <DataTemplate x:Key="CollocationReliquaryTemplate"
+                      x:DataType="shvc:ReliquarySetView">
             <shuxcc:HorizontalCard>
                 <shuxcc:HorizontalCard.Left>
                     <cwc:SwitchPresenter Value="{Binding Icons.Count, Mode=OneWay}">
@@ -239,12 +254,14 @@
                     </cwc:SwitchPresenter>
                 </shuxcc:HorizontalCard.Left>
                 <shuxcc:HorizontalCard.Right>
-                    <StackPanel Margin="8,0,8,0" HorizontalAlignment="Left">
+                    <StackPanel Margin="8,0,8,0"
+                                HorizontalAlignment="Left">
                         <TextBlock
                             Text="{Binding Name}"
                             TextTrimming="CharacterEllipsis"
                             TextWrapping="NoWrap"/>
-                        <StackPanel Orientation="Horizontal" Spacing="4">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="4">
                             <TextBlock
                                 Opacity="0.7"
                                 Style="{StaticResource CaptionTextBlockStyle}"
@@ -259,7 +276,8 @@
             </shuxcc:HorizontalCard>
         </DataTemplate>
 
-        <DataTemplate x:Key="CostumeTemplate" x:DataType="shmma:Costume">
+        <DataTemplate x:Key="CostumeTemplate"
+                      x:DataType="shmma:Costume">
             <Grid Margin="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -276,7 +294,8 @@
                     Height="80"
                     Margin="0,0,16,0"
                     Source="{Binding FrontIcon, Converter={StaticResource AvatarCardConverter}}"/>
-                <StackPanel Grid.Column="1" Margin="0,0,16,-4">
+                <StackPanel Grid.Column="1"
+                            Margin="0,0,16,-4">
                     <TextBlock Text="{Binding Name}"/>
                     <shuxct:DescriptionTextBlock
                         Margin="0,8,0,16"
@@ -286,30 +305,40 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="FetterStoryTemplate" x:DataType="shmma:Fetter">
-            <cwc:SettingsCard Padding="16,8,8,8" BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}">
+        <DataTemplate x:Key="FetterStoryTemplate"
+                      x:DataType="shmma:Fetter">
+            <cwc:SettingsCard Padding="16,8,8,8"
+                              BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}">
                 <cwc:SettingsCard.Header>
-                    <shuxct:DescriptionTextBlock Description="{Binding Title}" TextStyle="{StaticResource BaseTextBlockStyle}"/>
+                    <shuxct:DescriptionTextBlock Description="{Binding Title}"
+                                                 TextStyle="{StaticResource BaseTextBlockStyle}"/>
                 </cwc:SettingsCard.Header>
                 <cwc:SettingsCard.Description>
-                    <shuxct:DescriptionTextBlock Description="{Binding Context}" TextStyle="{StaticResource CaptionTextBlockStyle}"/>
+                    <shuxct:DescriptionTextBlock Description="{Binding Context}"
+                                                 TextStyle="{StaticResource CaptionTextBlockStyle}"/>
                 </cwc:SettingsCard.Description>
             </cwc:SettingsCard>
         </DataTemplate>
 
-        <DataTemplate x:Key="AvatarGridTemplate" x:DataType="shmma:Avatar">
+        <!--         网格模式的头像项模板，包含头像图标、名称以及右键菜单。 -->
+        <DataTemplate x:Key="AvatarGridTemplate"
+                      x:DataType="shmma:Avatar">
             <shuxcc:VerticalCard Width="82">
+                <!--更改内容-->
                 <shuxcc:VerticalCard.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem
-                            Command="{Binding Path=DataContext.CultivateCommand, ElementName=RootPage}"
+                            Command="{Binding ElementName=PageRoot, Path=DataContext.CultivateCommand}"
                             CommandParameter="{Binding}"
-                            Icon="{shuxm:FontIcon Glyph=&#xE8EF;}"
-                            Text="{shuxm:ResourceString Name=ViewPageCultivateCalculate}"/>
+                            Text="{shuxm:ResourceString Name=ViewPageWiKiGeneralAddToDevPlanButtonLabel}"/>
                     </MenuFlyout>
                 </shuxcc:VerticalCard.ContextFlyout>
+                <!--更改时间-->
+
+
                 <shuxcc:VerticalCard.Top>
-                    <shuxc:ItemIcon Icon="{Binding Icon, Converter={StaticResource AvatarIconConverter}, Mode=OneWay}" Quality="{Binding Quality}"/>
+                    <shuxc:ItemIcon Icon="{Binding Icon, Converter={StaticResource AvatarIconConverter}, Mode=OneWay}"
+                                    Quality="{Binding Quality}"/>
                 </shuxcc:VerticalCard.Top>
                 <shuxcc:VerticalCard.Bottom>
                     <TextBlock
@@ -323,14 +352,16 @@
 
     <shuxc:StandardView ShowCondition="{Binding Avatars, Converter={StaticResource EmptyObjectToBoolConverter}}">
         <shuxc:StandardView.EmptyContent>
-            <shuxc:Loading IsLoading="{Binding Avatars, Converter={StaticResource EmptyObjectToBoolRevertConverter}}" Style="{ThemeResource DefaultLoadingViewStyle}"/>
+            <shuxc:Loading IsLoading="{Binding Avatars, Converter={StaticResource EmptyObjectToBoolRevertConverter}}"
+                           Style="{ThemeResource DefaultLoadingViewStyle}"/>
         </shuxc:StandardView.EmptyContent>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border Margin="16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+            <Border Margin="16"
+                    cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
                 <Border Style="{ThemeResource AcrylicBorderCardStyle}">
                     <CommandBar
                         Grid.Row="0"
@@ -376,7 +407,8 @@
                 ContentTransitions="{ThemeResource EntranceThemeTransitions}"
                 Value="{Binding ElementName=ItemsPanelSelector, Path=Current}">
                 <cwc:Case Value="List">
-                    <Border Margin="16,0,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+                    <Border Margin="16,0,16,16"
+                            cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
                         <Border Style="{ThemeResource AcrylicBorderCardStyle}">
                             <SplitView
                                 DisplayMode="Inline"
@@ -397,7 +429,8 @@
                                 </SplitView.Pane>
                                 <SplitView.Content>
                                     <Grid>
-                                        <StackPanel VerticalAlignment="Center" Visibility="{Binding Avatars.CurrentItem, Converter={StaticResource EmptyObjectToVisibilityRevertConverter}}">
+                                        <StackPanel VerticalAlignment="Center"
+                                                    Visibility="{Binding Avatars.CurrentItem, Converter={StaticResource EmptyObjectToVisibilityRevertConverter}}">
                                             <shuxci:CachedImage
                                                 Height="120"
                                                 MinWidth="{ThemeResource SettingsCardContentControlMinWidth}"
@@ -426,8 +459,10 @@
                                                         <ColumnDefinition Width="auto"/>
                                                         <ColumnDefinition/>
                                                     </Grid.ColumnDefinitions>
-                                                    <StackPanel Grid.Column="0" Margin="16">
-                                                        <Grid Margin="0,0,0,12" ColumnSpacing="8">
+                                                    <StackPanel Grid.Column="0"
+                                                                Margin="16">
+                                                        <Grid Margin="0,0,0,12"
+                                                              ColumnSpacing="8">
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="auto"/>
                                                                 <ColumnDefinition Width="auto"/>
@@ -460,7 +495,8 @@
                                                         Grid.Row="0"
                                                         Grid.Column="1"
                                                         Margin="16">
-                                                        <StackPanel Margin="0,0,0,2" Orientation="Horizontal">
+                                                        <StackPanel Margin="0,0,0,2"
+                                                                    Orientation="Horizontal">
                                                             <TextBlock
                                                                 VerticalAlignment="Center"
                                                                 Style="{StaticResource SubtitleTextBlockStyle}"
@@ -485,7 +521,8 @@
                                                             ColumnSpacing="6"
                                                             Columns="4">
                                                             <StackPanel>
-                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarDateofBirthTitle}"/>
+                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}"
+                                                                           Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarDateofBirthTitle}"/>
                                                                 <TextBlock
                                                                     Margin="0,6,0,0"
                                                                     Style="{StaticResource CaptionTextBlockStyle}"
@@ -493,7 +530,8 @@
                                                                     TextWrapping="NoWrap"/>
                                                             </StackPanel>
                                                             <StackPanel>
-                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarOccupationNameTitle}"/>
+                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}"
+                                                                           Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarOccupationNameTitle}"/>
                                                                 <TextBlock
                                                                     Margin="0,6,0,0"
                                                                     Style="{StaticResource CaptionTextBlockStyle}"
@@ -501,7 +539,8 @@
                                                                     TextWrapping="NoWrap"/>
                                                             </StackPanel>
                                                             <StackPanel>
-                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{Binding Avatars.CurrentItem.FetterInfo.VisionOverride}"/>
+                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}"
+                                                                           Text="{Binding Avatars.CurrentItem.FetterInfo.VisionOverride}"/>
                                                                 <TextBlock
                                                                     Margin="0,6,0,0"
                                                                     Style="{StaticResource CaptionTextBlockStyle}"
@@ -509,7 +548,8 @@
                                                                     TextWrapping="NoWrap"/>
                                                             </StackPanel>
                                                             <StackPanel>
-                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarConstellationNameTitle}"/>
+                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}"
+                                                                           Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarConstellationNameTitle}"/>
                                                                 <TextBlock
                                                                     Margin="0,6,0,0"
                                                                     Style="{StaticResource CaptionTextBlockStyle}"
@@ -524,7 +564,8 @@
                                                             ColumnSpacing="6"
                                                             Columns="4">
                                                             <StackPanel>
-                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarChineseCVNameTitle}"/>
+                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}"
+                                                                           Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarChineseCVNameTitle}"/>
                                                                 <TextBlock
                                                                     Margin="0,6,0,0"
                                                                     Style="{StaticResource CaptionTextBlockStyle}"
@@ -532,7 +573,8 @@
                                                                     TextWrapping="NoWrap"/>
                                                             </StackPanel>
                                                             <StackPanel>
-                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarJapaneseCVNameTitle}"/>
+                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}"
+                                                                           Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarJapaneseCVNameTitle}"/>
                                                                 <TextBlock
                                                                     Margin="0,6,0,0"
                                                                     Style="{StaticResource CaptionTextBlockStyle}"
@@ -540,7 +582,8 @@
                                                                     TextWrapping="NoWrap"/>
                                                             </StackPanel>
                                                             <StackPanel>
-                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarEnglishCVNameTitle}"/>
+                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}"
+                                                                           Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarEnglishCVNameTitle}"/>
                                                                 <TextBlock
                                                                     Margin="0,6,0,0"
                                                                     Style="{StaticResource CaptionTextBlockStyle}"
@@ -548,7 +591,8 @@
                                                                     TextWrapping="NoWrap"/>
                                                             </StackPanel>
                                                             <StackPanel>
-                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarKoreanCVNameTitle}"/>
+                                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}"
+                                                                           Text="{shuxm:ResourceString Name=ViewPageWiKiAvatarKoreanCVNameTitle}"/>
                                                                 <TextBlock
                                                                     Margin="0,6,0,0"
                                                                     Style="{StaticResource CaptionTextBlockStyle}"
@@ -674,13 +718,17 @@
                                                     BaseValueInfo="{Binding BaseValueInfo, Mode=OneWay}"/>
 
                                                 <!--  天赋  -->
-                                                <Border Padding="16" Style="{ThemeResource BorderShimmerStyle}">
-                                                    <shuxvs:SkillPivot ItemTemplate="{StaticResource SkillDataTemplate}" Skills="{Binding Avatars.CurrentItem.SkillDepot.CompositeSkills}"/>
+                                                <Border Padding="16"
+                                                        Style="{ThemeResource BorderShimmerStyle}">
+                                                    <shuxvs:SkillPivot ItemTemplate="{StaticResource SkillDataTemplate}"
+                                                                       Skills="{Binding Avatars.CurrentItem.SkillDepot.CompositeSkills}"/>
                                                 </Border>
 
                                                 <!--  命座  -->
-                                                <Border Padding="16" Style="{ThemeResource BorderShimmerStyle}">
-                                                    <shuxvs:SkillPivot ItemTemplate="{StaticResource TalentDataTemplate}" Skills="{Binding Avatars.CurrentItem.SkillDepot.Talents}"/>
+                                                <Border Padding="16"
+                                                        Style="{ThemeResource BorderShimmerStyle}">
+                                                    <shuxvs:SkillPivot ItemTemplate="{StaticResource TalentDataTemplate}"
+                                                                       Skills="{Binding Avatars.CurrentItem.SkillDepot.Talents}"/>
                                                 </Border>
 
                                                 <!--  搭配  -->
@@ -688,7 +736,8 @@
                                                     Padding="16"
                                                     Style="{ThemeResource BorderShimmerStyle}"
                                                     Visibility="{Binding Avatars.CurrentItem.CollocationView, Converter={StaticResource EmptyObjectToVisibilityConverter}}">
-                                                    <Grid ColumnSpacing="8" RowSpacing="8">
+                                                    <Grid ColumnSpacing="8"
+                                                          RowSpacing="8">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition/>
                                                             <ColumnDefinition/>
@@ -735,18 +784,22 @@
                                                 </Border>
 
                                                 <!--  立绘  -->
-                                                <Border Padding="16" Style="{ThemeResource BorderShimmerStyle}">
+                                                <Border Padding="16"
+                                                        Style="{ThemeResource BorderShimmerStyle}">
                                                     <Grid RowSpacing="16">
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition/>
                                                             <RowDefinition Height="auto"/>
                                                         </Grid.RowDefinitions>
 
-                                                        <Border Grid.Row="0" Style="{ThemeResource BorderShimmerStyle}">
+                                                        <Border Grid.Row="0"
+                                                                Style="{ThemeResource BorderShimmerStyle}">
                                                             <cwc:ConstrainedBox AspectRatio="2048:1024">
                                                                 <Grid>
-                                                                    <shuxci:CachedImage Source="{Binding Avatars.CurrentItem.Icon, Converter={StaticResource GachaAvatarImgConverter}}" Visibility="{Binding Avatars.CurrentItem.CostumesView.CurrentItem.IsDefault}"/>
-                                                                    <shuxci:CachedImage Source="{Binding Avatars.CurrentItem.CostumesView.CurrentItem.FrontIcon, Converter={StaticResource CostumeConverter}}" Visibility="{Binding Avatars.CurrentItem.CostumesView.CurrentItem.IsDefault, Converter={StaticResource BoolToVisibilityRevertConverter}}"/>
+                                                                    <shuxci:CachedImage Source="{Binding Avatars.CurrentItem.Icon, Converter={StaticResource GachaAvatarImgConverter}}"
+                                                                                        Visibility="{Binding Avatars.CurrentItem.CostumesView.CurrentItem.IsDefault}"/>
+                                                                    <shuxci:CachedImage Source="{Binding Avatars.CurrentItem.CostumesView.CurrentItem.FrontIcon, Converter={StaticResource CostumeConverter}}"
+                                                                                        Visibility="{Binding Avatars.CurrentItem.CostumesView.CurrentItem.IsDefault, Converter={StaticResource BoolToVisibilityRevertConverter}}"/>
                                                                 </Grid>
                                                             </cwc:ConstrainedBox>
                                                         </Border>
@@ -778,10 +831,14 @@
                                                 <Border>
                                                     <Border.Resources>
                                                         <!--  ReSharper disable Xaml.RedundantResource  -->
-                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="{ThemeResource ControlAltFillColorSecondary}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBackground"
+                                                                         Color="{ThemeResource ControlAltFillColorSecondary}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
                                                         <!--  ReSharper restore Xaml.RedundantResource  -->
                                                     </Border.Resources>
                                                     <Expander
@@ -790,7 +847,8 @@
                                                         Background="{ThemeResource ControlAltFillColorSecondaryBrush}"
                                                         Header="{shuxm:ResourceString Name=ViewPageWiKiAvatarNameCardHeader}"
                                                         IsExpanded="True">
-                                                        <Grid DataContext="{Binding Avatars.CurrentItem.NameCard}" RowSpacing="16">
+                                                        <Grid DataContext="{Binding Avatars.CurrentItem.NameCard}"
+                                                              RowSpacing="16">
                                                             <Grid.RowDefinitions>
                                                                 <RowDefinition Height="auto"/>
                                                                 <RowDefinition/>
@@ -832,8 +890,10 @@
                                                                 </Grid>
                                                             </Grid>
 
-                                                            <Border Grid.Row="1" CornerRadius="{ThemeResource OverlayCornerRadius}">
-                                                                <shuxci:CachedImage Source="{Binding PicturePrefix, Converter={StaticResource AvatarNameCardPicConverter}}" Stretch="Uniform"/>
+                                                            <Border Grid.Row="1"
+                                                                    CornerRadius="{ThemeResource OverlayCornerRadius}">
+                                                                <shuxci:CachedImage Source="{Binding PicturePrefix, Converter={StaticResource AvatarNameCardPicConverter}}"
+                                                                                    Stretch="Uniform"/>
                                                             </Border>
 
                                                             <Grid
@@ -861,7 +921,8 @@
                                                                     Grid.Column="1"
                                                                     VerticalAlignment="Center"
                                                                     Spacing="8">
-                                                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Name}"/>
+                                                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}"
+                                                                               Text="{Binding Name}"/>
                                                                     <TextBlock
                                                                         Text="{Binding Description}"
                                                                         TextTrimming="None"
@@ -876,10 +937,14 @@
                                                 <Border Visibility="{Binding Avatars.CurrentItem.TraceEffect, Converter={StaticResource EmptyObjectToVisibilityConverter}}">
                                                     <Border.Resources>
                                                         <!--  ReSharper disable Xaml.RedundantResource  -->
-                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="{ThemeResource ControlAltFillColorSecondary}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBackground"
+                                                                         Color="{ThemeResource ControlAltFillColorSecondary}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
                                                         <!--  ReSharper restore Xaml.RedundantResource  -->
                                                     </Border.Resources>
                                                     <Expander
@@ -897,8 +962,10 @@
                                                                 Grid.Column="0"
                                                                 Icon="{Binding Icon, Converter={StaticResource AvatarTraceEffectIconConverter}}"
                                                                 Quality="QUALITY_NONE"/>
-                                                            <StackPanel Grid.Column="1" Margin="16,0,0,0">
-                                                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                                                            <StackPanel Grid.Column="1"
+                                                                        Margin="16,0,0,0">
+                                                                <TextBlock Text="{Binding Name}"
+                                                                           TextWrapping="Wrap"/>
                                                                 <TextBlock
                                                                     Margin="0,16,0,0"
                                                                     Text="{Binding Description}"
@@ -912,10 +979,14 @@
                                                 <Border Visibility="{Binding Avatars.CurrentItem.CookBonusView, Converter={StaticResource EmptyObjectToVisibilityConverter}}">
                                                     <Border.Resources>
                                                         <!--  ReSharper disable Xaml.RedundantResource  -->
-                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="{ThemeResource ControlAltFillColorSecondary}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBackground"
+                                                                         Color="{ThemeResource ControlAltFillColorSecondary}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
                                                         <!--  ReSharper restore Xaml.RedundantResource  -->
                                                     </Border.Resources>
                                                     <Expander
@@ -951,7 +1022,8 @@
                                                                 Grid.RowSpan="4"
                                                                 Grid.Column="2"
                                                                 Margin="16,0,0,0">
-                                                                <TextBlock Text="{Binding Item.Description}" TextWrapping="Wrap"/>
+                                                                <TextBlock Text="{Binding Item.Description}"
+                                                                           TextWrapping="Wrap"/>
                                                                 <TextBlock
                                                                     Margin="0,16,0,0"
                                                                     Text="{Binding Item.EffectDescription}"
@@ -962,7 +1034,8 @@
                                                                 Grid.Column="0"
                                                                 Margin="0,16,0,0">
                                                                 <shuxcc:VerticalCard.Top>
-                                                                    <shuxc:ItemIcon Icon="{Binding Item.Icon, Converter={StaticResource ItemIconConverter}}" Quality="{Binding Item.RankLevel}"/>
+                                                                    <shuxc:ItemIcon Icon="{Binding Item.Icon, Converter={StaticResource ItemIconConverter}}"
+                                                                                    Quality="{Binding Item.RankLevel}"/>
                                                                 </shuxcc:VerticalCard.Top>
                                                                 <shuxcc:VerticalCard.Bottom>
                                                                     <TextBlock
@@ -977,7 +1050,8 @@
                                                                 Grid.Column="1"
                                                                 Margin="16,16,0,0">
                                                                 <shuxcc:VerticalCard.Top>
-                                                                    <shuxc:ItemIcon Icon="{Binding OriginItem.Icon, Converter={StaticResource ItemIconConverter}}" Quality="{Binding OriginItem.RankLevel}"/>
+                                                                    <shuxc:ItemIcon Icon="{Binding OriginItem.Icon, Converter={StaticResource ItemIconConverter}}"
+                                                                                    Quality="{Binding OriginItem.RankLevel}"/>
                                                                 </shuxcc:VerticalCard.Top>
                                                                 <shuxcc:VerticalCard.Bottom>
                                                                     <TextBlock
@@ -995,15 +1069,24 @@
                                                 <Border>
                                                     <Border.Resources>
                                                         <!--  ReSharper disable Xaml.RedundantResource  -->
-                                                        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent"/>
-                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBackground" Color="{ThemeResource ControlAltFillColorSecondary}"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBackgroundDisabled" Color="Transparent"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBackgroundPointerOver" Color="Transparent"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBackgroundPressed" Color="Transparent"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ToggleButtonBackground" Color="{ThemeResource ControlAltFillColorSecondary}"/>
+                                                        <SolidColorBrush x:Key="ExpanderContentBackground"
+                                                                         Color="Transparent"/>
+                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBackground"
+                                                                         Color="{ThemeResource ControlAltFillColorSecondary}"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBackgroundDisabled"
+                                                                         Color="Transparent"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBackgroundPointerOver"
+                                                                         Color="Transparent"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBackgroundPressed"
+                                                                         Color="Transparent"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ToggleButtonBackground"
+                                                                         Color="{ThemeResource ControlAltFillColorSecondary}"/>
                                                         <!--  ReSharper restore Xaml.RedundantResource  -->
                                                     </Border.Resources>
                                                     <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -1018,15 +1101,24 @@
                                                 <Border>
                                                     <Border.Resources>
                                                         <!--  ReSharper disable Xaml.RedundantResource  -->
-                                                        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent"/>
-                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBackground" Color="{ThemeResource ControlAltFillColorSecondary}"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBackgroundDisabled" Color="Transparent"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBackgroundPointerOver" Color="Transparent"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBackgroundPressed" Color="Transparent"/>
-                                                        <SolidColorBrush x:Key="SettingsCardBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ToggleButtonBackground" Color="{ThemeResource ControlAltFillColorSecondary}"/>
+                                                        <SolidColorBrush x:Key="ExpanderContentBackground"
+                                                                         Color="Transparent"/>
+                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBackground"
+                                                                         Color="{ThemeResource ControlAltFillColorSecondary}"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBackgroundDisabled"
+                                                                         Color="Transparent"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBackgroundPointerOver"
+                                                                         Color="Transparent"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBackgroundPressed"
+                                                                         Color="Transparent"/>
+                                                        <SolidColorBrush x:Key="SettingsCardBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ToggleButtonBackground"
+                                                                         Color="{ThemeResource ControlAltFillColorSecondary}"/>
                                                         <!--  ReSharper restore Xaml.RedundantResource  -->
                                                     </Border.Resources>
                                                     <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -1045,10 +1137,12 @@
                     </Border>
                 </cwc:Case>
                 <cwc:Case Value="Grid">
-                    <Border Margin="16,0,16,16" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+                    <Border Margin="16,0,16,16"
+                            cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
                         <Border Style="{ThemeResource AcrylicBorderCardStyle}">
                             <Grid Padding="16,16,4,-6">
-                                <StackPanel VerticalAlignment="Center" Visibility="{Binding Avatars.Count, Converter={StaticResource Int32ToVisibilityRevertConverter}}">
+                                <StackPanel VerticalAlignment="Center"
+                                            Visibility="{Binding Avatars.Count, Converter={StaticResource Int32ToVisibilityRevertConverter}}">
                                     <shuxci:CachedImage
                                         Height="120"
                                         MinWidth="{ThemeResource SettingsCardContentControlMinWidth}"

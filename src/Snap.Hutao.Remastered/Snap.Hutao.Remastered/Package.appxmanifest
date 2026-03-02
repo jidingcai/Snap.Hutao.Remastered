@@ -11,12 +11,16 @@
   IgnorableNamespaces="com uap desktop desktop6 rescap mp">
 
   <Identity
-    Name="E8B6E2B3-D2A0-4435-A81D-2A16AAF405C8"
+    Name="51b820e6-8ad8-46e5-b12e-1223c6ca3357"
     Publisher="CN=SnapHutaoRemasteringProject"
+<<<<<<< Updated upstream
     Version="1.18.4.0" />
+=======
+    Version="1.18.3.0-test1" />
+>>>>>>> Stashed changes
 
   <Properties>
-    <DisplayName>Snap Hutao Remastered</DisplayName>
+    <DisplayName>Snap Hutao Remastered-测试版</DisplayName>
     <PublisherDisplayName>SnapHutaoRemasteringProject</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
     <desktop6:RegistryWriteVirtualization>disabled</desktop6:RegistryWriteVirtualization>
@@ -36,7 +40,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Snap Hutao Remastered"
+        DisplayName="Snap Hutao Remastered-测试版"
         Description="A Snap Hutao Remastered Software"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"

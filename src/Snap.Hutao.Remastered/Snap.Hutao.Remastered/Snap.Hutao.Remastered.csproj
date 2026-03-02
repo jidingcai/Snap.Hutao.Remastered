@@ -46,7 +46,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <PackageCertificateThumbprint>DF238164333FF968767E226E4BA59FD6D27D7313</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>42B9E58EBB458E15C91DEBDE384F085FB26C9D37</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Resource\Icon\UI_BtnIcon_Beyond_GH.png" />
@@ -55,11 +55,11 @@
     <None Remove="Resource\Navigation\Plugin.png" />
   </ItemGroup>
 
-  <ItemGroup>
+<ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
     <AppxManifest Include="Package.appxmanifest" Condition="'$(ConfigurationName)'!='Debug'" />
     <AppxManifest Include="Package.development.appxmanifest" Condition="'$(ConfigurationName)'=='Debug'" />
-  </ItemGroup>
+    </ItemGroup>
 
   <Target Name="DeleteLibsAfterBuild" AfterTargets="Build">
     <ItemGroup>

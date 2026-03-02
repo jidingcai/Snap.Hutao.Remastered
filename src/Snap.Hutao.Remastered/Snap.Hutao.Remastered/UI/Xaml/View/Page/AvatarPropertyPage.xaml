@@ -21,7 +21,7 @@
     d:DataContext="{d:DesignInstance shva:AvatarPropertyViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d"
-    x:Name="RootPage">
+    x:Name="PageRoot">
 
     <mxi:Interaction.Behaviors>
         <shuxb:InvokeCommandOnLoadedBehavior Command="{Binding LoadCommand}"/>
@@ -62,7 +62,8 @@
                 </shuxdcs:LayoutSwitchModeConverter.GridValue>
             </shuxdcs:LayoutSwitchModeConverter>
 
-            <DataTemplate x:Key="AvatarGridViewSkillTemplate" x:DataType="shva:SkillView">
+            <DataTemplate x:Key="AvatarGridViewSkillTemplate"
+                          x:DataType="shva:SkillView">
                 <shuxcc:VerticalCard>
                     <shuxcc:VerticalCard.Top>
                         <shuxci:CachedImage
@@ -74,25 +75,40 @@
                             Source="{Binding Icon}"/>
                     </shuxcc:VerticalCard.Top>
                     <shuxcc:VerticalCard.Bottom>
-                        <Viewbox MaxWidth="52" StretchDirection="DownOnly">
+                        <Viewbox MaxWidth="52"
+                                 StretchDirection="DownOnly">
                             <TextBlock Text="{Binding Level}"/>
                         </Viewbox>
                     </shuxcc:VerticalCard.Bottom>
                 </shuxcc:VerticalCard>
             </DataTemplate>
 
-            <DataTemplate x:Key="AvatarGridViewTemplate" x:DataType="shva:AvatarView">
+            <!-- 网格模式的头像项模板，包含头像图标、名称以及右键菜单。 -->
+            <DataTemplate x:Key="AvatarGridViewTemplate"
+                          x:DataType="shva:AvatarView">
                 <Grid Style="{ThemeResource GridShimmerStyle}">
+                    <!-- 修复：删除多余的嵌套Grid.ContextFlyout层 -->
                     <Grid.ContextFlyout>
+                        <!--更改内容-->
                         <MenuFlyout>
+                            <!-- 添加角色到养成计划 -->
                             <MenuFlyoutItem
-                                Command="{Binding Path=DataContext.CultivateCommand, ElementName=RootPage}"
+                                Command="{Binding ElementName=PageRoot, Path=DataContext.AddAvatarToPlanCommand}"
                                 CommandParameter="{Binding}"
-                                Icon="{shuxm:FontIcon Glyph=&#xE8EF;}"
-                                Text="{shuxm:ResourceString Name=ViewPageCultivateCalculate}"/>
+                                Text="{shuxm:ResourceString Name=ViewPageAvatarPropertyAddAvatarToPlan}"/>
+                            <!-- 添加武器到养成计划 -->
+                            <MenuFlyoutItem
+                                Command="{Binding ElementName=PageRoot, Path=DataContext.AddWeaponToPlanCommand}"
+                                CommandParameter="{Binding}"
+                                Text="{shuxm:ResourceString Name=ViewPageAvatarPropertyAddWeaponToPlan}"/>
+                            <!-- 添加角色与武器到养成计划 -->
+                            <MenuFlyoutItem
+                                Command="{Binding ElementName=PageRoot, Path=DataContext.CultivateCommand}"
+                                CommandParameter="{Binding}"
+                                Text="{shuxm:ResourceString Name=ViewPageAvatarPropertyAddBothToPlan}"/>
                         </MenuFlyout>
+                        <!--更改时间-->
                     </Grid.ContextFlyout>
-
                     <Border
                         Grid.ColumnSpan="3"
                         Margin="-6"
@@ -106,7 +122,8 @@
                             Stretch="UniformToFill"/>
                     </Border>
 
-                    <Border Margin="-6" Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"/>
+                    <Border Margin="-6"
+                            Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"/>
 
                     <Grid
                         Padding="6"
@@ -120,7 +137,8 @@
                         </Grid.ColumnDefinitions>
                         <shuxcc:VerticalCard Grid.Column="0">
                             <shuxcc:VerticalCard.Top>
-                                <Grid cw:UIElementExtensions.ClipToBounds="True" CornerRadius="{ThemeResource ControlCornerRadius}">
+                                <Grid cw:UIElementExtensions.ClipToBounds="True"
+                                      CornerRadius="{ThemeResource ControlCornerRadius}">
                                     <shuxc:ItemIcon
                                         Width="64"
                                         Height="64"
@@ -166,7 +184,8 @@
                         </shuxcc:VerticalCard>
                         <shuxcc:VerticalCard Grid.Column="1">
                             <shuxcc:VerticalCard.Top>
-                                <Grid cw:UIElementExtensions.ClipToBounds="True" CornerRadius="{ThemeResource ControlCornerRadius}">
+                                <Grid cw:UIElementExtensions.ClipToBounds="True"
+                                      CornerRadius="{ThemeResource ControlCornerRadius}">
                                     <shuxc:ItemIcon
                                         Width="64"
                                         Height="64"
@@ -198,17 +217,29 @@
                 </Grid>
             </DataTemplate>
 
-            <DataTemplate x:Key="AvatarListViewTemplate" x:DataType="shva:AvatarView">
-                <Grid>
+            <!--         列表模式的头像项模板，包含头像图标、名称以及右键菜单。 -->
+            <DataTemplate x:Key="AvatarListViewTemplate"
+                          x:DataType="shva:AvatarView">
+
+                <Grid Background="Transparent">
+
                     <Grid.ContextFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem
-                                Command="{Binding Path=DataContext.CultivateCommand, ElementName=RootPage}"
+                                Command="{Binding ElementName=PageRoot, Path=DataContext.AddAvatarToPlanCommand}"
                                 CommandParameter="{Binding}"
-                                Icon="{shuxm:FontIcon Glyph=&#xE8EF;}"
-                                Text="{shuxm:ResourceString Name=ViewPageCultivateCalculate}"/>
+                                Text="添加角色到养成计划"/>
+                            <MenuFlyoutItem
+                                Command="{Binding ElementName=PageRoot, Path=DataContext.AddWeaponToPlanCommand}"
+                                CommandParameter="{Binding}"
+                                Text="添加武器到养成计划"/>
+                            <MenuFlyoutItem
+                                Command="{Binding ElementName=PageRoot, Path=DataContext.CultivateCommand}"
+                                CommandParameter="{Binding}"
+                                Text="添加角色与武器到养成计划"/>
                         </MenuFlyout>
                     </Grid.ContextFlyout>
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
@@ -219,7 +250,8 @@
                         Height="48"
                         Margin="0,0,12,12"
                         Source="{Binding SideIcon, Mode=OneWay}"/>
-                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <StackPanel Grid.Column="1"
+                                VerticalAlignment="Center">
                         <TextBlock
                             Margin="12,0,0,0"
                             Text="{Binding Name}"
@@ -235,7 +267,8 @@
                 </Grid>
             </DataTemplate>
 
-            <DataTemplate x:Key="AvatarConstellationTemplate" x:DataType="shva:ConstellationView">
+            <DataTemplate x:Key="AvatarConstellationTemplate"
+                          x:DataType="shva:ConstellationView">
                 <Button
                     Margin="0,0,2,0"
                     Padding="2"
@@ -266,7 +299,8 @@
                 </Button>
             </DataTemplate>
 
-            <DataTemplate x:Key="AvatarSkillTemplate" x:DataType="shva:SkillView">
+            <DataTemplate x:Key="AvatarSkillTemplate"
+                          x:DataType="shva:SkillView">
                 <Button
                     Margin="0,2,0,0"
                     Padding="4"
@@ -304,15 +338,18 @@
                                     <x:Double x:Key="SettingsCardMinHeight">0</x:Double>
                                     <!--  ReSharper restore Xaml.RedundantResource  -->
                                 </StackPanel.Resources>
-                                <shuxct:DescriptionTextBlock Description="{Binding Description}" TextStyle="{StaticResource BodyTextBlockStyle}"/>
-                                <ItemsControl Margin="0,12,0,0" ItemsSource="{Binding Info.Parameters}">
+                                <shuxct:DescriptionTextBlock Description="{Binding Description}"
+                                                             TextStyle="{StaticResource BodyTextBlockStyle}"/>
+                                <ItemsControl Margin="0,12,0,0"
+                                              ItemsSource="{Binding Info.Parameters}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <cwcont:SettingsCard
                                                 Margin="0,2,0,0"
                                                 Padding="12,0"
                                                 Header="{Binding Description}">
-                                                <TextBlock Margin="0,8" Text="{Binding Parameter}"/>
+                                                <TextBlock Margin="0,8"
+                                                           Text="{Binding Parameter}"/>
                                             </cwcont:SettingsCard>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
@@ -323,7 +360,8 @@
                 </Button>
             </DataTemplate>
 
-            <DataTemplate x:Key="AvatarPropertyTemplate" x:DataType="shva:AvatarProperty">
+            <DataTemplate x:Key="AvatarPropertyTemplate"
+                          x:DataType="shva:AvatarProperty">
                 <Grid
                     Margin="-1,0"
                     Padding="16,12"
@@ -365,8 +403,10 @@
                 </Grid>
             </DataTemplate>
 
-            <DataTemplate x:Key="AvatarReliquarySubPropertyTemplate" x:DataType="shva:ReliquaryComposedSubProperty">
-                <Grid Padding="12,0" ColumnSpacing="6">
+            <DataTemplate x:Key="AvatarReliquarySubPropertyTemplate"
+                          x:DataType="shva:ReliquaryComposedSubProperty">
+                <Grid Padding="12,0"
+                      ColumnSpacing="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
@@ -376,8 +416,10 @@
                         Style="{StaticResource BaseTextBlockStyle}"
                         Text="{Binding Name}"
                         TextWrapping="NoWrap"/>
-                    <TextBlock Grid.Column="1" Text="{Binding Value}"/>
-                    <Grid Grid.Column="2" Opacity="1">
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding Value}"/>
+                    <Grid Grid.Column="2"
+                          Opacity="1">
                         <Ellipse
                             Width="16"
                             Height="16"
@@ -402,7 +444,8 @@
                 </Grid>
             </DataTemplate>
 
-            <DataTemplate x:Key="AvatarReliquaryTemplate" x:DataType="shva:ReliquaryView">
+            <DataTemplate x:Key="AvatarReliquaryTemplate"
+                          x:DataType="shva:ReliquaryView">
                 <Grid Style="{ThemeResource GridShimmerStyle}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -426,7 +469,8 @@
                             Icon="{Binding Icon}"
                             Quality="{Binding Quality}"/>
                         <Grid Grid.Column="1">
-                            <StackPanel VerticalAlignment="Center" Spacing="2">
+                            <StackPanel VerticalAlignment="Center"
+                                        Spacing="2">
                                 <TextBlock Text="{Binding Name}"/>
                                 <TextBlock
                                     Opacity="0.7"
@@ -440,7 +484,8 @@
                         Height="1"
                         Fill="{ThemeResource ControlStrokeColorDefaultBrush}"/>
                     <!--  主属性  -->
-                    <Grid Grid.Row="2" Padding="12">
+                    <Grid Grid.Row="2"
+                          Padding="12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="auto"/>
@@ -468,8 +513,10 @@
                 </Grid>
             </DataTemplate>
 
-            <DataTemplate x:Key="TokenTemplate" x:DataType="shuxca:SearchToken">
-                <Grid Height="22" VerticalAlignment="Center">
+            <DataTemplate x:Key="TokenTemplate"
+                          x:DataType="shuxca:SearchToken">
+                <Grid Height="22"
+                      VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="24"/>
                         <ColumnDefinition/>
@@ -509,7 +556,8 @@
                 </Grid>
             </DataTemplate>
 
-            <DataTemplate x:Key="PromoteArrayTemplate" x:DataType="x:Boolean">
+            <DataTemplate x:Key="PromoteArrayTemplate"
+                          x:DataType="x:Boolean">
                 <Grid>
                     <BitmapIcon
                         Width="12"
@@ -526,7 +574,8 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <shuxc:StandardView HideCondition="{Binding IsInitialized, Converter={StaticResource BoolNegationConverter}}" ShowCondition="{Binding Summary, Converter={StaticResource EmptyObjectToBoolConverter}}">
+    <shuxc:StandardView HideCondition="{Binding IsInitialized, Converter={StaticResource BoolNegationConverter}}"
+                        ShowCondition="{Binding Summary, Converter={StaticResource EmptyObjectToBoolConverter}}">
         <shuxc:StandardView.EmptyContent>
             <Border
                 HorizontalAlignment="Center"
@@ -546,7 +595,8 @@
                             HorizontalAlignment="Center"
                             Style="{StaticResource SubtitleTextBlockStyle}"
                             Text="{shuxm:ResourceString Name=ViewPageAvatarPropertyDefaultDescription}"/>
-                        <StackPanel Margin="0,24,0,0" Spacing="{StaticResource SettingsCardSpacing}">
+                        <StackPanel Margin="0,24,0,0"
+                                    Spacing="{StaticResource SettingsCardSpacing}">
                             <cwcont:SettingsCard
                                 ActionIconToolTip="{shuxm:ResourceString Name=ViewPageAvatarPropertyRefreshAction}"
                                 Command="{Binding RefreshFromHoyolabGameRecordCommand}"
@@ -563,9 +613,11 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Border Margin="16,16,16,0" cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
+            <Border Margin="16,16,16,0"
+                    cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
                 <Border Style="{ThemeResource AcrylicSecondaryBorderCardStyle}">
-                    <CommandBar Grid.Row="0" DefaultLabelPosition="Right">
+                    <CommandBar Grid.Row="0"
+                                DefaultLabelPosition="Right">
                         <CommandBar.Content>
                             <StackPanel Orientation="Horizontal">
                                 <shuxc:LayoutSwitch
@@ -606,7 +658,8 @@
                             Command="{Binding ExportToTextCommand}"
                             Icon="{shuxm:FontIcon Glyph=&#xEDE1;}"
                             Label="{shuxm:ResourceString Name=ViewPageAvatarPropertyExportToTextLabel}"/>
-                        <AppBarButton Icon="{shuxm:FontIcon Glyph=&#xE8EF;}" Label="{shuxm:ResourceString Name=ViewPageCultivateCalculate}">
+                        <AppBarButton Icon="{shuxm:FontIcon Glyph=&#xE8EF;}"
+                                      Label="{shuxm:ResourceString Name=ViewPageCultivateCalculate}">
                             <AppBarButton.Flyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem
@@ -637,7 +690,8 @@
                 Margin="16,16,16,16"
                 cw:Effects.Shadow="{ThemeResource CompatCardShadow}">
                 <Border Style="{ThemeResource AcrylicBorderCardStyle}">
-                    <cwcont:SwitchPresenter ContentTransitions="{ThemeResource EntranceThemeTransitions}" Value="{Binding ElementName=ItemsPanelSelector, Path=Current, Mode=OneWay}">
+                    <cwcont:SwitchPresenter ContentTransitions="{ThemeResource EntranceThemeTransitions}"
+                                            Value="{Binding ElementName=ItemsPanelSelector, Path=Current, Mode=OneWay}">
                         <cwcont:Case Value="Grid">
                             <GridView
                                 Margin="16,16,4,-4"
@@ -680,7 +734,8 @@
                                 </SplitView.Pane>
                                 <SplitView.Content>
                                     <Grid>
-                                        <StackPanel VerticalAlignment="Center" Visibility="{Binding Summary.Avatars.CurrentItem, Converter={StaticResource EmptyObjectToVisibilityRevertConverter}}">
+                                        <StackPanel VerticalAlignment="Center"
+                                                    Visibility="{Binding Summary.Avatars.CurrentItem, Converter={StaticResource EmptyObjectToVisibilityRevertConverter}}">
                                             <shuxci:CachedImage
                                                 Height="120"
                                                 MinWidth="{ThemeResource SettingsCardContentControlMinWidth}"
@@ -691,7 +746,8 @@
                                                 Style="{StaticResource SubtitleTextBlockStyle}"
                                                 Text="{shuxm:ResourceString Name=ControlAutoSuggestBoxNotFoundValue}"/>
                                         </StackPanel>
-                                        <ScrollViewer shuxc:ScrollViewerHelper.ScrollToTopAssociatedObject="{Binding Summary.Avatars.CurrentItem}" Visibility="{Binding Summary.Avatars.CurrentItem, Converter={StaticResource EmptyObjectToVisibilityConverter}}">
+                                        <ScrollViewer shuxc:ScrollViewerHelper.ScrollToTopAssociatedObject="{Binding Summary.Avatars.CurrentItem}"
+                                                      Visibility="{Binding Summary.Avatars.CurrentItem, Converter={StaticResource EmptyObjectToVisibilityConverter}}">
                                             <StackPanel
                                                 MaxWidth="800"
                                                 Margin="16"
@@ -748,7 +804,8 @@
                                                                     cw:Effects.Shadow="{ThemeResource CompatCardShadow}"
                                                                     Icon="{Binding Summary.Avatars.CurrentItem.Icon}"
                                                                     Quality="{Binding Summary.Avatars.CurrentItem.Quality}"/>
-                                                                <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                                                                <StackPanel Grid.Column="1"
+                                                                            Margin="16,0,0,0">
                                                                     <TextBlock
                                                                         Foreground="#FFFFFFFF"
                                                                         Style="{StaticResource SubtitleTextBlockStyle}"
@@ -763,7 +820,8 @@
                                                                         Foreground="#FFFFFFFF"
                                                                         Style="{StaticResource BaseTextBlockStyle}"
                                                                         Text="{Binding Summary.Avatars.CurrentItem.Level}"/>
-                                                                    <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
+                                                                    <StackPanel Margin="0,2,0,0"
+                                                                                Orientation="Horizontal">
                                                                         <Image
                                                                             Width="16"
                                                                             Height="16"
@@ -795,7 +853,8 @@
                                                                     BorderBrush="{x:Null}"
                                                                     BorderThickness="0">
                                                                     <Button.Content>
-                                                                        <shuxc:ItemIcon Icon="{Binding Icon}" Quality="{Binding Quality}"/>
+                                                                        <shuxc:ItemIcon Icon="{Binding Icon}"
+                                                                                        Quality="{Binding Quality}"/>
                                                                     </Button.Content>
                                                                     <Button.Flyout>
                                                                         <Flyout Placement="BottomEdgeAlignedLeft">
@@ -828,7 +887,8 @@
                                                                         </Flyout>
                                                                     </Button.Flyout>
                                                                 </Button>
-                                                                <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                                                                <StackPanel Grid.Column="1"
+                                                                            Margin="16,0,0,0">
                                                                     <TextBlock
                                                                         Foreground="#FFFFFFFF"
                                                                         Style="{StaticResource SubtitleTextBlockStyle}"
@@ -874,11 +934,16 @@
                                                 <!--  角色属性  -->
                                                 <Border>
                                                     <Border.Resources>
-                                                        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent"/>
-                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="{ThemeResource ControlAltFillColorSecondary}"/>
-                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderContentBackground"
+                                                                         Color="Transparent"/>
+                                                        <SolidColorBrush x:Key="ExpanderContentBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBackground"
+                                                                         Color="{ThemeResource ControlAltFillColorSecondary}"/>
+                                                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush"
+                                                                         Color="{ThemeResource ControlStrokeColorDefault}"/>
                                                     </Border.Resources>
                                                     <Expander
                                                         Margin="0"
@@ -890,7 +955,8 @@
                                                             Margin="0,-1,0,0"
                                                             Background="{ThemeResource ControlAltFillColorSecondaryBrush}"
                                                             BorderThickness="0">
-                                                            <ItemsControl ItemTemplate="{StaticResource AvatarPropertyTemplate}" ItemsSource="{Binding Summary.Avatars.CurrentItem.Properties}"/>
+                                                            <ItemsControl ItemTemplate="{StaticResource AvatarPropertyTemplate}"
+                                                                          ItemsSource="{Binding Summary.Avatars.CurrentItem.Properties}"/>
                                                         </Border>
                                                     </Expander>
                                                 </Border>
@@ -903,7 +969,8 @@
                                                         <ColumnDefinition/>
                                                     </Grid.ColumnDefinitions>
 
-                                                    <shuxcc:VerticalCard Grid.Column="0" HorizontalBottomAlignment="Left">
+                                                    <shuxcc:VerticalCard Grid.Column="0"
+                                                                         HorizontalBottomAlignment="Left">
                                                         <shuxcc:VerticalCard.Top>
                                                             <TextBlock
                                                                 Margin="12"
@@ -927,7 +994,8 @@
                                                         VerticalAlignment="Center"
                                                         Source="ms-appx:///Resource/Icon/UI_Icon_RelicType3.png"/>
 
-                                                    <shuxcc:VerticalCard Grid.Column="1" HorizontalBottomAlignment="Left">
+                                                    <shuxcc:VerticalCard Grid.Column="1"
+                                                                         HorizontalBottomAlignment="Left">
                                                         <shuxcc:VerticalCard.Top>
                                                             <TextBlock
                                                                 Margin="12"
@@ -951,7 +1019,8 @@
                                                         VerticalAlignment="Center"
                                                         Source="ms-appx:///Resource/Icon/UI_Icon_RelicType4.png"/>
 
-                                                    <shuxcc:VerticalCard Grid.Column="2" HorizontalBottomAlignment="Left">
+                                                    <shuxcc:VerticalCard Grid.Column="2"
+                                                                         HorizontalBottomAlignment="Left">
                                                         <shuxcc:VerticalCard.Top>
                                                             <TextBlock
                                                                 Margin="12"
@@ -975,7 +1044,8 @@
                                                         VerticalAlignment="Center"
                                                         Source="ms-appx:///Resource/Icon/UI_Icon_RelicType5.png"/>
 
-                                                    <shuxcc:VerticalCard Grid.Column="3" HorizontalBottomAlignment="Left">
+                                                    <shuxcc:VerticalCard Grid.Column="3"
+                                                                         HorizontalBottomAlignment="Left">
                                                         <shuxcc:VerticalCard.Top>
                                                             <TextBlock
                                                                 Margin="12"
@@ -993,7 +1063,8 @@
                                                 </Grid>
 
                                                 <!--  圣遗物  -->
-                                                <ItemsControl ItemTemplate="{StaticResource AvatarReliquaryTemplate}" ItemsSource="{Binding Summary.Avatars.CurrentItem.Reliquaries}">
+                                                <ItemsControl ItemTemplate="{StaticResource AvatarReliquaryTemplate}"
+                                                              ItemsSource="{Binding Summary.Avatars.CurrentItem.Reliquaries}">
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
                                                             <shuxcp:UniformPanel
